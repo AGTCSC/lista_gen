@@ -24,3 +24,11 @@ typedef struct listagen
 	memória, quantidade de bytes, o compilador se baseia sempre no maior campo
 	(maior quantidade de bytes).
 */
+int main()
+{
+	ListaGen* l = (ListaGen*) malloc(sizeof(ListaGen));
+	
+	//criando atomo
+	l->terminal = 1;
+	strcpy(l->no.info, "info");
+}
