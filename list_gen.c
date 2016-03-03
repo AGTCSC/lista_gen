@@ -25,23 +25,36 @@ typedef struct listagen
 	(maior quantidade de bytes).
 */
 
-void exibeR (ListaGen* l)
+void exibeR (ListaGen* l)				//Nesse algoritmo encarregamos a parte recursiva da função para descer na lista
+{							//já a parte interativa faz o papel de andar horizontalmente na mesma.
+	if(!Nula(L))					
+	{						
+		if(Atomo(l))				
+			printf("%s", l->no.info);	
+		else					
+		{					
+			printf("[");			
+			while(!Nula(l))			
+			{				
+				exibe(Head(l));		
+				l = tail(l);		
+				if(!Nula(l))		
+					printf(",");	
+			}				
+			printf("]");			
+		}					
+	}						
+}							
+void exibeAtomo(ListaGen *l)
 {
-	if(!Nula(L))
+	if(!Nula(l))
 	{
 		if(Atomo(l))
 			printf("%s", l->no.info);
 		else
 		{
-			printf("[");
-			while(!Nula(l))
-			{
-				exibe(Head(l));
-				l = tail(l);
-				if(!Nula(l))
-					printf(",");
-			}
-			printf("]");
+			exibeAtomo(Head(l));
+			exibeAtomo(Tail(l));
 		}
 	}
 }
