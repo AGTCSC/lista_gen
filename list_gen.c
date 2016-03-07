@@ -24,7 +24,66 @@ typedef struct listagen
 	memória, quantidade de bytes, o compilador se baseia sempre no maior campo
 	(maior quantidade de bytes).
 */
+ListaGen * Head(ListaGen * l)
+{
+	if(Nula(l)) || Atomo(l))
+	{
+		printf("Head: Nao pode ser NUla ou Atomo!");
+		return NULL;
+	}
+	else
+		return l->no.lista.cobeca;
+}
 
+ListaGen * Head(ListaGen * l)
+{
+	if(Nula(l)) || Atomo(l))
+	{
+		printf("Head: Nao pode ser NUla ou Atomo!");
+		return NULL;
+	}
+	else
+		return l->no.lista.cabeca;
+}
+
+ListaGen * Tail(ListaGen * l)
+{
+	if(Nula(l)) || Atomo(l))
+	{
+		printf("Tail: Nao pode ser Nula ou Atomo!");
+		return NULL;
+	}
+	else
+		return l->no.lista.cauda;
+}
+/*
+--> Algoritmo para destruir uma lista generalizada (libera todos os nodos de uma lista).
+	Três casos a considerar:
+	>>> L tem um vaor nulo, representando uma lista vazia.
+	>>> L aponta um nodo terminal representando um átomo
+	>>> L aponta um nodo não-terminal, representando uma lista generalizada.
+*/
+void Kill(ListaGen** l)
+{
+	if(!Nula(*l))					
+	{						
+		if(Atomo(l))				
+			free((*l));
+		else					
+		{
+			Kill(&(*l)->no.lista.cabeca);
+			Kill(&(*l)->no.lista.cauda);
+			free(*l);
+			*l = NULL;		
+		}
+	}
+
+}
+
+ListaGen** duplica(ListaGen** l1)
+{
+	
+}
 void exibeR (ListaGen* l)				//Nesse algoritmo encarregamos a parte recursiva da função para descer na lista
 {							//já a parte interativa faz o papel de andar horizontalmente na mesma.
 	if(!Nula(L))					
