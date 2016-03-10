@@ -80,8 +80,27 @@ void Kill(ListaGen** l)
 
 }
 
-ListaGen** duplica(ListaGen** l1)
+ListaGen* duplica(ListaGen** l)
 {
+	if(Nula(l)) //é nula?
+		return NULL;
+	if(Atomo(l))//é atomo?
+		return CriaT(l->no.info) //se for crie um
+	return Cons(Dup(Head(l)), Dup(Tail(l))); //se não foi nenhuma das outras é lista
+						//com a chamada das fonções nessa ordem andamos da forma em q descemos verticalmente
+						//retornamos e andamos horizontalmente.
+}
+char compara(ListaGen* l1, ListaGen* l2)
+{
+	if(Nula(l1) && Nula(l2))
+		return 1;
+	if(Nula(l1) || Nula(l2))
+	if(Atomo(l1) && Atomo(l2))
+		return !strcmp(l1->no.info, l2->no.info);
+	if(Atomo(l1) || Atomo(l2))
+		return 0;
+	return compara(Head(l1), head(l2)) && compara(Tail(l1), Tail(l2));
+	
 	
 }
 void exibeR (ListaGen* l)				//Nesse algoritmo encarregamos a parte recursiva da função para descer na lista
