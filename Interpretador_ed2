@@ -1,0 +1,25 @@
+typedef struct TPvar
+{
+	int end;
+	string nome;
+	char tipo;					//C = char, I = int, F = float
+	float valor; 				//armazena caracteres, inteiros e floats
+	struct TPvar* prox; 
+} var;
+
+typedef struct TPparam
+{
+	int end;
+	string nome;
+	char tipo;					//C = char, I = int, F = float
+	char t_param;				//Tipo de paramentro: valor ou referencia
+	float valor; 				//armazena caracteres, inteiros e floats
+	struct TPparam* prox;
+}praram;
+
+typedef struct TPfuncao
+{
+	string nome;
+	//var* var_locais; //LISTA DE VARIAVEIS
+	//p
+}func;
