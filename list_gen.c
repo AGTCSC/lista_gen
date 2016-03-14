@@ -136,6 +136,33 @@ void exibeAtomo(ListaGen *l)
 		}
 	}
 }
+void percorreI (ListaGen *l)
+{
+	Pilha *P;
+	init(&p);
+	push(&p, l);
+	
+	while(!isEmpity(p))
+	{
+		if(!Nula(l))
+		{
+			push(&p, l);
+			l = Head(l);
+			while(!Nula(l) && !Atomo(l))
+			{
+				push(&p, l);
+				l = Head(l);
+			}
+			if(Atomo(l))
+				printf("%s", l->no.info);
+		}
+		pop(&p, &l);
+		l = Tail(l);
+		if(!Nula(l))
+			push(&p, l);
+	}
+	
+}
 int main()
 {
 	ListaGen* l = (ListaGen*) malloc(sizeof(ListaGen));
