@@ -186,24 +186,99 @@ int Len(ListaGen* l)
 		count = 0;
 		while(!isEmpty(aux))
 		{
-			aux = getTail(aux);
+			if(!isAtomo(l))
+				aux = getTail(aux);
+			else
+				aux = NULL;
 			count++;
 		}
 		if(count > max)
 			max = count;
-		
-		l = getHead(l);
+		if(!isAtomo(l))
+			l = getHead(l);
+		else
+			l = NULL;
 	}
 
 	return count;
 }
+
+int Deph(ListaGen* l)
+{
+	ListaGen *aux;
+	int count = 0, max = 0;
+
+	while(!isEmpty(l))
+	{
+		aux = l;
+		count = 0;
+		while(!isEmpty(aux))
+		{
+			if(!isAtomo(aux))
+				aux = getHead(aux);
+			else
+				aux = NULL;
+
+			count++;
+		}
+		if(count > max)
+			max = count;
+
+		if(!isAtomo(l))
+			l = getTail(l);
+		else
+			l = NULL;
+	}
+
+	return count;
+}
+
+void append(ListaGen** l, ListaGen* a)
+{
+	ListaGen* aux = *l;
+	while(!isEmpty(aux->no.lista.cauda))	
+		aux = aux->no.lista.cauda;
+	aux->no.lista.cauda = a;
+}
+
+void replace(ListaGen** l, char a[], char b[])
+{
+	if(!isEmpty(*l))
+	{
+		if(isAtomo(*l))
+		{
+			if(strcmp((*l)->no.info, b) == 0)
+				strcpy((*l)->no.info, a);
+		}
+		else
+		{
+			replace(&(*l)->no.lista.cabeca, a, b);
+			replace(&(*l)->no.lista.cauda, a, b);
+		}
+	}
+}
+
+ListaGen* topLevel(ListaGen* l)
+{	
+	if(!isEmpty(l))
+	{	
+		if(isAtomo(l->no.lista.cabeca))
+			return Cons(CriaAtomo(l->no.lista.cabeca->no.info), topLevel(getTail(l)));
+		return NULL;
+	}
+
+}
 int main()
 {
-	ListaGen* l;
+	ListaGen* l, *ai;
 	char a[8] = "A";
-	l = Cons(Cons(CriaAtomo("X"), NULL), Cons(CriaAtomo("Y"), NULL));
-	Exibe(l);
-	//exibirR(l);
-	printf("%d\n", Len(l));
+	l = Cons(CriaAtomo("X"), Cons(CriaAtomo("Y"), Cons(Cons(CriaAtomo("Z"), NULL), NULL)));
+	ai = Cons(Cons(CriaAtomo("L"), NULL), Cons(CriaAtomo("X"), NULL));
+	//append(&l, ai);
+	//replace(&l, "A", "X");
+	Exibe(topLevel(l));
+	//Exibe((l));	
+	printf("\n");
+
 	getchar();
 }
