@@ -263,22 +263,37 @@ ListaGen* topLevel(ListaGen* l)
 	if(!isEmpty(l))
 	{	
 		if(isAtomo(l->no.lista.cabeca))
-			return Cons(CriaAtomo(l->no.lista.cabeca->no.info), topLevel(getTail(l)));
-		return NULL;
+			return Cons(CriaAtomo(l->no.lista.cabeca->no.info), topLevel(getTail(l)));		
+		return topLevel(getTail(l));
 	}
 
+	return NULL;
+}
+char* Nth(ListaGen* l, int nivel)
+{
+	char* n = (char*) malloc(sizeof(char)*20);
+	ListaGen* nova = topLevel(l);
+	while(!isEmpty(nova) && nivel)
+	{
+		strcpy(n, nova->no.lista.cabeca->no.info);
+		nivel--;
+		nova = getTail(nova);
+	}
+	if(nivel > 0)
+		return "ERROR";
+	return n;
 }
 int main()
 {
 	ListaGen* l, *ai;
 	char a[8] = "A";
-	l = Cons(CriaAtomo("X"), Cons(CriaAtomo("Y"), Cons(Cons(CriaAtomo("Z"), NULL), NULL)));
+	l = Cons(CriaAtomo("X"), Cons(CriaAtomo("Y"), Cons(Cons(CriaAtomo("Z"), NULL), Cons(CriaAtomo("Y"),NULL))));
 	ai = Cons(Cons(CriaAtomo("L"), NULL), Cons(CriaAtomo("X"), NULL));
 	//append(&l, ai);
 	//replace(&l, "A", "X");
 	Exibe(topLevel(l));
 	//Exibe((l));	
-	printf("\n");
+	printf("%s\n", Nth(l, 10));
 
 	getchar();
 }
